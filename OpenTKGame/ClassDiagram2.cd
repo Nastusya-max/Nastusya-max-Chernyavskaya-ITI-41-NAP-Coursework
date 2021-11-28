@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="OpentTKGame.AngleDecorator" Collapsed="true">
+    <Position X="4.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Decorator\AngleDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.DecoratorBase" Collapsed="true">
+    <Position X="6.5" Y="5.75" Width="1.5" />
+    <InheritanceLine Type="OpentTKGame.PlayerProperities" FixedFromPoint="true">
+      <Path>
+        <Point X="7.062" Y="5" />
+        <Point X="7.062" Y="4.906" />
+        <Point X="6.406" Y="4.906" />
+        <Point X="6.406" Y="6.101" />
+        <Point X="6.5" Y="6.101" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAEAAAABAQAAAAAAAEgAAAAICAA=</HashCode>
+      <FileName>Decorator\DecoratorBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.ForceDecorator" Collapsed="true">
+    <Position X="6.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAACAA=</HashCode>
+      <FileName>Decorator\ForceDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.SpeedDecorator" Collapsed="true">
+    <Position X="8.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Decorator\SpeedDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.Factory" Collapsed="true">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Factory\Factory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.ContentPipe" Collapsed="true">
+    <Position X="4.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Functional\ContentPipe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.PlayerProperities" Collapsed="true">
+    <Position X="6.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAABAQAAAAAAAEgAAAAICAA=</HashCode>
+      <FileName>Functional\PlayerPropereties.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.Program" Collapsed="true">
+    <Position X="4.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Functional\Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.Game" Collapsed="true">
+    <Position X="4.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAAAgAAAAAAIBAAgAAACAAAAAAAAAAAAAAAAAACAAIA=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.Background" Collapsed="true">
+    <Position X="10" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\Background.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.Ball" Collapsed="true">
+    <Position X="8" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAAAAKAAAAAAAAAAAAAAAAAACAABwAQAAAAAA=</HashCode>
+      <FileName>GameObjects\Ball.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.Colon" Collapsed="true">
+    <Position X="13.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\Colon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.GameObject" Collapsed="true">
+    <Position X="10.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAgAAIAAAAAAAAAAAAAAAIACAAAAAA=</HashCode>
+      <FileName>GameObjects\GameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.Grid" Collapsed="true">
+    <Position X="8.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\Grid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.Player" Collapsed="true">
+    <Position X="13.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAQACAAAAgEgAAAAAAAAAAAAIAMEMAQAQoIAAA=</HashCode>
+      <FileName>GameObjects\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.PresentsLauncher" Collapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAgBAgAAAAAAAgAAAgAAAAAAAQAAAIAAAA=</HashCode>
+      <FileName>GameObjects\PresentsLauncher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.AnglePrize" Collapsed="true">
+    <Position X="11.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>GameObjects\Prizes\AnglePrize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.ForcePrize" Collapsed="true">
+    <Position X="13.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>GameObjects\Prizes\ForcePrize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.Prize" Collapsed="true">
+    <Position X="11.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAABAAAAAAAAAAAAAAIAAAAAAAAAAAggAA=</HashCode>
+      <FileName>GameObjects\Prizes\Prize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.SpeedPrize" Collapsed="true">
+    <Position X="10" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>GameObjects\Prizes\SpeedPrize.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.Score" Collapsed="true">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAEAAAAAAoAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\Score.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.Texture2D" Collapsed="true">
+    <Position X="4.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAgAQAQAAAAEAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Functional\Texture2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.UI" Collapsed="true">
+    <Position X="12.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>GameObjects\UI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpentTKGame.SpriteBatch" Collapsed="true">
+    <Position X="6.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Functional\SpriteBatch.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9.22" />
+</ClassDiagram>
