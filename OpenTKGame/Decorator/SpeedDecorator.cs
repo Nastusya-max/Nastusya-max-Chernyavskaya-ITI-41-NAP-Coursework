@@ -1,8 +1,11 @@
-﻿namespace OpentTKGame
+﻿using System;
+
+namespace OpentTKGame
 {
     /// <summary>
     /// Декоратор скорости
     /// </summary>
+    [Serializable]
     public class SpeedDecorator : DecoratorBase
     {
         /// <summary>
@@ -17,6 +20,6 @@
         /// <summary>
         /// Декорирование скорости
         /// </summary>
-        public override float Speed { get => base.Speed + 2; set => base.Speed = value; }
+        public override float Speed { get => base.Speed + 0.2f; set => base.Speed = value; }
     }
 }

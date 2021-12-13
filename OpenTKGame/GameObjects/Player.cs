@@ -4,6 +4,10 @@ using OpenTK.Input;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing;
 using System.Windows.Controls;
+using System.Net.Sockets;
+using System.Collections.Generic;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace OpentTKGame
 {
@@ -14,6 +18,8 @@ namespace OpentTKGame
     {
         bool isFall;
         bool isGround;
+        bool isHost;
+
         /// <summary>
         /// Массив для счёто очков
         /// </summary>
@@ -22,6 +28,7 @@ namespace OpentTKGame
         Texture2D spritePlayer1_2 = ContentPipe.LoadTexture("cat2.png");
         Texture2D spritePlayer2_1 = ContentPipe.LoadTexture("bird.png");
         Texture2D spritePlayer2_2 = ContentPipe.LoadTexture("bird2.png");
+
         /// <summary>
         /// Индикатор силы удара
         /// </summary>
@@ -40,19 +47,22 @@ namespace OpentTKGame
         /// <param name="texture"></param>
         /// <param name="scale"></param>
         /// <param name="position"></param>
-        /// <param name="positionOfGrid"></param>
+        /// <param name="isRightPlayer"></param>
         /// <param name="progressBar"></param>
-        public Player(Texture2D texture, Vector2 scale, Vector2 position, bool positionOfGrid, ProgressBar progressBar)
+        public Player(Texture2D texture, Vector2 scale, Vector2 position, bool isRightPlayer,
+            ProgressBar progressBar, bool isHost)
             :base(texture, scale, position)
         {
+            this.isHost = isHost;
+
             Position = position;
-            PositionOfGrid = positionOfGrid;
+            IsRightPlayer = isRightPlayer;
             Texture = texture;
             this.progressBar = progressBar;
 
             Property = new PlayerProperities()
             {
-                Speed = 5,
+                Speed = 0.5f,
                 Force = 10,
                 Angle = 45,
                 MinAngle =20,
@@ -65,17 +75,96 @@ namespace OpentTKGame
         /// Метод управления игроком
         /// </summary>
         /// <param name="keystate"></param>
-        public void UpdateKeys(KeyboardState keystate)
+        public void UpdateKeys(KeyboardState keystate, List<Key> clientKeys)
         {
             dir = Vector2.Zero;
-            if (PositionOfGrid == false )
+            if (IsRightPlayer)
             {
-                if (keystate.IsKeyDown(Key.ShiftLeft))
+                MoveRightPlayer(keystate, clientKeys);
+                return;
+            }
+
+            MoveLeftPlayer(keystate);
+        }
+
+        private void MoveLeftPlayer(KeyboardState keystate)
+        {
+            if (!isHost)
+            {
+                return;
+            }
+
+            if (keystate.IsKeyDown(Key.ShiftLeft))
+            {
+                Property.Force += 0.3f;
+            }
+
+            if (keystate.IsKeyDown(Key.ControlLeft))
+            {
+                Property.Force -= 0.3f;
+            }
+
+            if (Property.Force > Property.MaxForce)
+            {
+                Property.Force = Property.MaxForce;
+            }
+
+            if (Property.Force < Property.MinForce)
+            {
+                Property.Force = Property.MinForce;
+            }
+
+            if (keystate.IsKeyDown(Key.E))
+            {
+                Property.Angle += 1;
+            }
+
+            if (keystate.IsKeyDown(Key.Q))
+            {
+                Property.Angle -= 1;
+            }
+
+            if (Property.Angle > Property.MaxAngle)
+            {
+                Property.Angle = Property.MaxAngle;
+            }
+
+            if (Property.Angle < Property.MinAngle)
+            {
+                Property.Angle = Property.MinAngle;
+            }
+
+            if (keystate.IsKeyDown(Key.A))
+            {
+                dir.X = 1;
+            }
+
+            if (keystate.IsKeyDown(Key.D))
+            {
+                dir.X = -1;
+            }
+
+            if (keystate.IsKeyDown(Key.W) && !isFall && isGround)
+            {
+                dir.Y = 1;
+            }
+
+            else
+            {
+                isFall = true;
+            }
+        }
+
+        private void MoveRightPlayer(KeyboardState keystate, List<Key> clientKeys)
+        {
+            if (isHost)
+            {
+                if (clientKeys.Contains(Key.ShiftLeft))
                 {
                     Property.Force += 0.3f;
                 }
 
-                if (keystate.IsKeyDown(Key.ControlLeft))
+                if (clientKeys.Contains(Key.ControlLeft))
                 {
                     Property.Force -= 0.3f;
                 }
@@ -90,14 +179,16 @@ namespace OpentTKGame
                     Property.Force = Property.MinForce;
                 }
 
-                if (keystate.IsKeyDown(Key.E))
+                if (clientKeys.Contains(Key.E))
                 {
                     Property.Angle += 1;
                 }
 
-                if (keystate.IsKeyDown(Key.Q))
+
+                if (clientKeys.Contains(Key.Q))
                 {
                     Property.Angle -= 1;
+
                 }
 
                 if (Property.Angle > Property.MaxAngle)
@@ -110,21 +201,20 @@ namespace OpentTKGame
                     Property.Angle = Property.MinAngle;
                 }
 
-                if (keystate.IsKeyDown(Key.A))
+                if (clientKeys.Contains(Key.A))
                 {
                     dir.X = 1;
                 }
 
-                if (keystate.IsKeyDown(Key.D))
+                if (clientKeys.Contains(Key.D))
                 {
                     dir.X = -1;
                 }
-                
-                if (keystate.IsKeyDown(Key.W) && !isFall && isGround)
+
+                if (clientKeys.Contains(Key.W) && !isFall && isGround)
                 {
                     dir.Y = 1;
                 }
-
                 else
                 {
                     isFall = true;
@@ -132,74 +222,49 @@ namespace OpentTKGame
             }
             else
             {
-                if (keystate.IsKeyDown(Key.ShiftRight))
+                if (keystate.IsKeyDown(Key.ShiftLeft))
                 {
-                    Property.Force += 0.3f;
+                    clientKeys.Add(Key.ShiftLeft);
                 }
 
-                if (keystate.IsKeyDown(Key.ControlRight))
+                if (keystate.IsKeyDown(Key.ControlLeft))
                 {
-                    Property.Force -= 0.3f;
+                    clientKeys.Add(Key.ControlLeft);
                 }
 
-                if (Property.Force > Property.MaxForce)
+                if (keystate.IsKeyDown(Key.E))
                 {
-                    Property.Force = Property.MaxForce;
+                    clientKeys.Add(Key.E);
                 }
 
-                if (Property.Force < Property.MinForce)
+                if (keystate.IsKeyDown(Key.Q))
                 {
-                    Property.Force = Property.MinForce;
+                    clientKeys.Add(Key.Q);
                 }
 
-                if (keystate.IsKeyDown(Key.Keypad9))
+                if (keystate.IsKeyDown(Key.A))
                 {
-                    Property.Angle += 1;
+                    clientKeys.Add(Key.A);
                 }
 
-
-                if (keystate.IsKeyDown(Key.Keypad7))
+                if (keystate.IsKeyDown(Key.D))
                 {
-                    Property.Angle -= 1;
-
+                    clientKeys.Add(Key.D);
                 }
 
-                if (Property.Angle > Property.MaxAngle)
+                if (keystate.IsKeyDown(Key.W))
                 {
-                    Property.Angle = Property.MaxAngle;
-                }
-
-                if (Property.Angle < Property.MinAngle)
-                {
-                    Property.Angle = Property.MinAngle;
-                }
-
-                if (keystate.IsKeyDown(Key.Keypad4))
-                {
-                    dir.X = 1;
-                }
-
-                if (keystate.IsKeyDown(Key.Keypad6))
-                {
-                    dir.X = -1;
-                }
-
-                if (keystate.IsKeyDown(Key.Keypad8) && !isFall && isGround)
-                {
-                    dir.Y = 1;
-                }
-                else
-                {
-                    isFall = true;
+                    clientKeys.Add(Key.W);
                 }
             }
         }
+
         /// <summary>
         /// Метод обновления кадров
         /// </summary>
-        public override void Update()
+        public override void Update(TimeSpan obj)
         {
-            Position += dir * Property.Speed;
+            Position += dir * Property.Speed * (float)obj.TotalMilliseconds;
             
             CheckPosition();
 
@@ -214,7 +279,7 @@ namespace OpentTKGame
             }
             if (isFall)
             {
-                Position -= new Vector2(0, 5);
+                Position -= new Vector2(0, 0.5f) * (float)obj.TotalMilliseconds;
             }
             Animation();
             Angle();
@@ -225,11 +290,11 @@ namespace OpentTKGame
         /// </summary>
         public void CheckPosition()
         {
-           if (PositionOfGrid)
+           if (IsRightPlayer)
            {
                 if (Position.X < -480)
                 {
-                    Position = new Vector2(-485, Position.Y);
+                    Position = new Vector2(-480, Position.Y);
                 }
                 if (Position.X > 20)
                 {
@@ -257,7 +322,7 @@ namespace OpentTKGame
             DateTime timer1970 = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             TimeSpan timerInterval = timer.Subtract(timer1970);
             Int32 iSeconds = Convert.ToInt32(timerInterval.TotalSeconds);
-            if (PositionOfGrid == false)
+            if (IsRightPlayer == false)
             {
                 Texture = spritePlayer1_1;
                 if (iSeconds % 2 == 0)
@@ -284,7 +349,7 @@ namespace OpentTKGame
             GL.LineWidth(3);
             GL.Begin(PrimitiveType.Lines);
             GL.Color3(Color.LightSeaGreen);
-            if (PositionOfGrid)
+            if (IsRightPlayer)
             {
                 GL.Vertex2(450, 350);
                 GL.Vertex2(400, 350);
@@ -307,6 +372,51 @@ namespace OpentTKGame
         private void Force()
         {
             progressBar.Value = (Property.Force - 5) / 0.15f;
+        }
+
+        private BinaryFormatter _binaryFormatter = new BinaryFormatter();
+        private MemoryStream _memoryStream = new MemoryStream();
+
+        [Serializable]
+        struct State
+        {
+            public PlayerProperities playerProperities;
+            public Vector2 pos;
+            public Vector2 dir;
+        }
+
+        public override byte[] Serialize()
+        {
+            var state = new State
+            {
+                playerProperities = Property,
+                dir = dir,
+                pos = Position,
+            };
+
+            _binaryFormatter.Serialize(_memoryStream, state);
+
+            var buffer = _memoryStream.ToArray();
+
+            _memoryStream.Flush();
+            _memoryStream.Seek(0, SeekOrigin.Begin);
+
+            return buffer;
+        }
+
+        public override void Deserialize(byte[] data)
+        {
+            _memoryStream.Write(data, 0, data.Length);
+            _memoryStream.Seek(0, SeekOrigin.Begin);
+
+            var state = (State)_binaryFormatter.Deserialize(_memoryStream);
+
+            _memoryStream.Flush();
+            _memoryStream.Seek(0, SeekOrigin.Begin);
+
+            Property = state.playerProperities;
+            dir = state.dir;
+            Position = state.pos;
         }
     }
 }

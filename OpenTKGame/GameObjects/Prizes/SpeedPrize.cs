@@ -29,5 +29,14 @@ namespace OpentTKGame
             player.Property = new SpeedDecorator(player.Property);
         }
 
+        public override void Deserialize(byte[] data)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override byte[] Serialize()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
