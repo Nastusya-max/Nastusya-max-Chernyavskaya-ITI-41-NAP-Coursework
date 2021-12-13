@@ -28,5 +28,15 @@ namespace OpentTKGame
         {
             player.Property = new ForceDecorator(player.Property);
         }
+
+        public override void Deserialize(byte[] data)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override byte[] Serialize()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

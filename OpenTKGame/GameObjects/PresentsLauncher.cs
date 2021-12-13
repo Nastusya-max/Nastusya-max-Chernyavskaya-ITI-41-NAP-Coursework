@@ -11,7 +11,7 @@ namespace OpentTKGame
     {
         DateTime timer = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
         int delay;
-        Random random = new Random();
+        Random random = new Random(1);
         Factory factory = new Factory();
         List<GameObject> gameObjects;
         Player leftPlayer;
@@ -62,6 +62,16 @@ namespace OpentTKGame
             {
                 return random.Next(-480, 20);
             }   
+        }
+
+        public override byte[] Serialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Deserialize(byte[] data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

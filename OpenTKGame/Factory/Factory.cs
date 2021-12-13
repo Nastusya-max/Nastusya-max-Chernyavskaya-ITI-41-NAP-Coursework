@@ -9,7 +9,7 @@ namespace OpentTKGame
     /// </summary>
     public class Factory
     {
-        Random random = new Random();
+        Random random = new Random(1);
         /// <summary>
         /// Метод реализующий гибкую генерацию призов случайных типов
         /// </summary>

@@ -1,4 +1,7 @@
 ﻿using OpenTK;
+using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace OpentTKGame
 {
@@ -33,59 +36,45 @@ namespace OpentTKGame
         /// </summary>
         public override void Update()
         {
-            if (Player.Score[playerNum] == 0)
+            if (Player.Score[playerNum] > 10)
             {
-                Texture = numbers[0];
+                return;
             }
-            if (Player.Score[playerNum] == 1)
+
+            var score = Player.Score[playerNum];
+            Texture = numbers[score];
+            if (score == 10)
             {
-                Texture = numbers[1];
-            }
-            if (Player.Score[playerNum] == 2)
-            {
-                Texture = numbers[2];
-            }
-            if (Player.Score[playerNum] == 3)
-            {
-                Texture = numbers[3];
-            }
-            if (Player.Score[playerNum] == 4)
-            {
-                Texture = numbers[4];
-            }
-            if (Player.Score[playerNum] == 3)
-            {
-                Texture = numbers[3];
-            }
-            if (Player.Score[playerNum] == 4)
-            {
-                Texture = numbers[4];
-            }
-            if (Player.Score[playerNum] == 5)
-            {
-                Texture = numbers[5];
-            }
-            if (Player.Score[playerNum] == 6)
-            {
-                Texture = numbers[6];
-            }
-            if (Player.Score[playerNum] == 7)
-            {
-                Texture = numbers[7];
-            }
-            if (Player.Score[playerNum] == 8)
-            {
-                Texture = numbers[8];
-            }
-            if (Player.Score[playerNum] == 9)
-            {
-                Texture = numbers[9];
-            }
-            if (Player.Score[playerNum] == 10)
-            {
-                Texture = numbers[10];
                 CheckGameOver = false;
             }
+        }
+
+        private BinaryFormatter _binaryFormatter = new BinaryFormatter();
+        private MemoryStream _memoryStream = new MemoryStream();
+
+        public override byte[] Serialize()
+        {
+            _binaryFormatter.Serialize(_memoryStream, Player.Score[playerNum]);
+
+            var buffer = _memoryStream.ToArray();
+
+            _memoryStream.Flush();
+            _memoryStream.Seek(0, SeekOrigin.Begin);
+
+            return buffer;
+        }
+
+        public override void Deserialize(byte[] data)
+        {
+            _memoryStream.Write(data, 0, data.Length);
+            _memoryStream.Seek(0, SeekOrigin.Begin);
+
+            var state = (int)_binaryFormatter.Deserialize(_memoryStream);
+
+            _memoryStream.Flush();
+            _memoryStream.Seek(0, SeekOrigin.Begin);
+
+            Player.Score[playerNum] = state;
         }
     }
 }

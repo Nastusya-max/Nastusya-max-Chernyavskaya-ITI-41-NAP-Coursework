@@ -1,8 +1,11 @@
-﻿namespace OpentTKGame
+﻿using System;
+
+namespace OpentTKGame
 {
     /// <summary>
     /// Декоратор скорости
     /// </summary>
+    [Serializable]
     public class SpeedDecorator : DecoratorBase
     {
         /// <summary>

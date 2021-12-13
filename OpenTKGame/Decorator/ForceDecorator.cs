@@ -1,8 +1,11 @@
-﻿namespace OpentTKGame
+﻿using System;
+
+namespace OpentTKGame
 {
     /// <summary>
     /// Декоратор силы удара
     /// </summary>
+    [Serializable]
     public class ForceDecorator : DecoratorBase
     {
         /// <summary>

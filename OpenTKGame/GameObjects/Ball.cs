@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using OpenTK;
 
 namespace OpentTKGame
@@ -13,7 +15,7 @@ namespace OpentTKGame
         float directionY;
         float RandX = 4;
         float RandY = -2;
-        Random random = new Random();
+        Random random = new Random(1);
         /// <summary>
         /// Счёт первого игрока
         /// </summary>
@@ -84,6 +86,8 @@ namespace OpentTKGame
                 Position = new Vector2(65, 30);
             }
         }
+
+
         /// <summary>
         /// Проверка столкновений с игроком
         /// </summary>
@@ -98,7 +102,7 @@ namespace OpentTKGame
                     {
                         Vector2 dir = new Vector2();
 
-                        if(((Player)item).PositionOfGrid)
+                        if(((Player)item).IsRightPlayer)
                         {
                             dir.Y = -1;
                             dir.X = 1 / (float)Math.Tan(MathHelper.DegreesToRadians(((Player)item).Property.Angle));
@@ -115,6 +119,51 @@ namespace OpentTKGame
                     } 
                 }
             }
+        }
+
+        private BinaryFormatter _binaryFormatter = new BinaryFormatter();
+        private MemoryStream _memoryStream = new MemoryStream();
+
+        [Serializable]
+        struct State
+        {
+            public float directionX;
+            public float directionY;
+            public Vector2 pos;
+        }
+
+        public override byte[] Serialize()
+        {
+            var state = new State
+            {
+                directionX = directionX,
+                directionY = directionY,
+                pos = Position,
+            };
+
+            _binaryFormatter.Serialize(_memoryStream, state);
+
+            var buffer = _memoryStream.ToArray();
+
+            _memoryStream.Flush();
+            _memoryStream.Seek(0, SeekOrigin.Begin);
+
+            return buffer;
+        }
+
+        public override void Deserialize(byte[] data)
+        {
+            _memoryStream.Write(data, 0, data.Length);
+            _memoryStream.Seek(0, SeekOrigin.Begin);
+
+            var state = (State)_binaryFormatter.Deserialize(_memoryStream);
+
+            _memoryStream.Flush();
+            _memoryStream.Seek(0, SeekOrigin.Begin);
+
+            directionX = state.directionX;
+            directionY = state.directionY;
+            Position = state.pos;
         }
     }
 }

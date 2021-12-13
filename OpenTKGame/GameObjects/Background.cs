@@ -18,6 +18,17 @@ namespace OpentTKGame
         {
 
         }
+
+        public override void Deserialize(byte[] data)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override byte[] Serialize()
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
         /// Обновление и модификация кадров
         /// </summary>
