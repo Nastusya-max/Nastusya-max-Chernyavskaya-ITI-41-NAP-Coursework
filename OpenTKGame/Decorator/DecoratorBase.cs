@@ -1,8 +1,11 @@
-﻿namespace OpentTKGame
+﻿using System;
+
+namespace OpentTKGame
 {
     /// <summary>
     /// Класс базовых декораций
     /// </summary>
+    [Serializable]
     public class DecoratorBase: PlayerProperities
     {
         PlayerProperities playerProperities;

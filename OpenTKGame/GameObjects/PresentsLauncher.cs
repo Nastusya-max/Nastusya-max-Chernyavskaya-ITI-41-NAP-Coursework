@@ -11,7 +11,7 @@ namespace OpentTKGame
     {
         DateTime timer = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
         int delay;
-        Random random = new Random();
+        Random random = new Random(1);
         Factory factory = new Factory();
         List<GameObject> gameObjects;
         Player leftPlayer;
@@ -36,7 +36,7 @@ namespace OpentTKGame
         /// <summary>
         /// Обновление и модификация кадров, применение метода рандомной гнерации призов из класса Factory
         /// </summary>
-        public override void Update()
+        public override void Update(TimeSpan obj)
         {
             DateTime time = TimeZoneInfo.ConvertTimeToUtc(DateTime.Now);
             var tmp = time - timer; 
@@ -62,6 +62,16 @@ namespace OpentTKGame
             {
                 return random.Next(-480, 20);
             }   
+        }
+
+        public override byte[] Serialize()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Deserialize(byte[] data)
+        {
+            throw new NotImplementedException();
         }
     }
 }

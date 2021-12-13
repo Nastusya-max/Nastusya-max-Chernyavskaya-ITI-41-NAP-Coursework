@@ -1,8 +1,11 @@
-﻿namespace OpentTKGame
+﻿using System;
+
+namespace OpentTKGame
 {
     /// <summary>
     /// Класс с характеристиками игрока
     /// </summary>
+    [Serializable]
     public class PlayerProperities
     {
         /// <summary>

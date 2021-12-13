@@ -1,8 +1,11 @@
-﻿namespace OpentTKGame
+﻿using System;
+
+namespace OpentTKGame
 {
     /// <summary>
     /// Декорация угла отскока
     /// </summary>
+    [Serializable]
     public class AngleDecorator : DecoratorBase
     {
         /// <summary>

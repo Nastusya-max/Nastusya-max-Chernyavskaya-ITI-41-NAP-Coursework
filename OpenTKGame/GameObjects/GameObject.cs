@@ -1,11 +1,15 @@
 ﻿using OpenTK;
+using System;
+
 namespace OpentTKGame
 {
     /// <summary>
     /// Класс, представляющий игровой объект.
     /// </summary>
     public abstract class GameObject
-    {   
+    {
+        public int Id { get; set; }
+
         /// <summary>
         /// Свойство, хранящее текстуру объекта
         /// </summary>
@@ -22,7 +26,7 @@ namespace OpentTKGame
         /// Свойство для определения нахождения игрока относительно сетки
         /// для игрока справа PositionOfGrid = true
         /// </summary>
-        public bool PositionOfGrid { get; set; }
+        public bool IsRightPlayer { get; set; }
         /// <summary>
         /// Конструктор игрового объекта.
         /// </summary>
@@ -38,6 +42,10 @@ namespace OpentTKGame
         /// <summary>
         /// Абстрактный метод для модификации и обновления отрисовки кадров на игровом пространстве
         /// </summary>
-        public abstract void Update();
+        public abstract void Update(TimeSpan obj);
+
+        public abstract byte[] Serialize();
+
+        public abstract void Deserialize(byte[] data);
     }
 }

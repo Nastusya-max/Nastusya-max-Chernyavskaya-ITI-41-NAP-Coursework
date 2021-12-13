@@ -1,4 +1,5 @@
 ﻿using OpenTK;
+using System;
 
 namespace OpentTKGame
 {
@@ -18,10 +19,21 @@ namespace OpentTKGame
         {
 
         }
+
+        public override void Deserialize(byte[] data)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override byte[] Serialize()
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
         /// Обновление и модификация кадров
         /// </summary>
-        public override void Update()
+        public override void Update(TimeSpan obj)
         {
 
         }

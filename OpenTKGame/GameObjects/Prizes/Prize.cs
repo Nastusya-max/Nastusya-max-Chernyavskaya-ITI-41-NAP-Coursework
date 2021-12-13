@@ -32,7 +32,7 @@ namespace OpentTKGame
         /// <summary>
         /// Обновление кадров
         /// </summary>
-        public override void Update()
+        public override void Update(TimeSpan obj)
         {
             if(Math.Abs(left.Position.Y - Position.Y) <= 30 && Math.Abs(left.Position.X - Position.X) <= 30)
             {

@@ -3,6 +3,7 @@ using System.Windows;
 using OpenTK.Wpf;
 using OpenTK.Graphics.OpenGL;
 using OpentTKGame;
+using System.Net.Sockets;
 
 namespace GameConsole
 {
@@ -11,12 +12,18 @@ namespace GameConsole
     /// </summary>
     public partial class MainWindow : Window
     {
+        UdpClient udpClient;
+        bool isHost;
+
         Game game = new Game(800, 600);
        /// <summary>
        /// Метод инициализации компонентов
        /// </summary>
-        public MainWindow()
+        public MainWindow(UdpClient udpClient, bool isHost)
         {
+            this.udpClient = udpClient;
+            this.isHost = isHost;
+
             InitializeComponent();
             
             var settings = new GLWpfControlSettings();
@@ -32,7 +39,7 @@ namespace GameConsole
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadIdentity();
             GL.Ortho(-Width, Width, Height, -Height, 0d, 1d);
-            game.Rendering();
+            game.Rendering(obj);
         }
 
         private void OpenTKControl_Ready()
@@ -41,7 +48,7 @@ namespace GameConsole
             GL.Enable(EnableCap.Blend);
             GL.Enable(EnableCap.Texture2D);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-            game.Initialization(LeftBar, RightBar);
+            game.Initialization(LeftBar, RightBar, udpClient, isHost);
         }
 
         private void RightBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
